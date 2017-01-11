@@ -1,0 +1,29 @@
+<html>
+<head>
+<title>Canvas Poker</title>
+<style>
+	body{
+		padding: 0px;
+		margin:0px;
+	}
+</style>
+</head>
+<body>
+<div id="stuff"></div>
+<script type="text/javascript" src="card.js"></script>
+<script type="text/javascript" src="user.js"></script>
+<script type="text/javascript" src="game.js"></script>
+<script type="text/javascript" src="poker.js"></script>
+
+<script type="text/javascript">
+
+window.addEventListener("load", function(){
+
+	let videoPoker = new Poker();
+	videoPoker.createCanvas();
+	videoPoker.createDeck();
+
+}, false);
+
+</script>
+</body>
