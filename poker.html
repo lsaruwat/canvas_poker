@@ -22,6 +22,8 @@ window.addEventListener("load", function(){
 	let videoPoker = new Poker();
 	videoPoker.createCanvas();
 	videoPoker.createDeck();
+	videoPoker.shuffleDeck();
+	console.log(videoPoker.deck);
 
 }, false);
 
