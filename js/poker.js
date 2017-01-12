@@ -1,50 +1,33 @@
-
-
-class Poker extends Game{
+class Poker extends CardGame{
   
 	constructor(){
 		super();
 		this.gameName = "Poker";
-		this.deck = [];
+		this.hand = [];
+		this.handSize = 5;
 	}
 
-	createDeck(){
-		let suit = null;
-		let val = null;
-		for(let i=0; i<52; i++){
-			if(i%4 === 0){
-				suit = "spades";
-			}
-			else if(i%4 === 1){
-				suit = "clubs";		
-			}
-			else if(i%4 === 2){
-				suit = "hearts";
-			}
-			else{
-				suit = "diamonds";
-			}
-
-			val = Math.floor(i/4);
-
-			this.deck.push(new Card(val, suit) );
+	deal(){
+		for(let i=0; i<this.handSize; i++){
+			this.hand.push(this.deck.pop());
 		}
-
 	}
 
-	shuffleDeck()
-	{
-		let randomDeck = [];
-		let empty = false;
+	drawCard(card){
+		this.ctx.beginPath();
+		this.ctx.rect(card.x, card.y, card.width, card.height);
+		this.ctx.fillStyle = card.color;
+		this.ctx.fill();
+		this.ctx.font = "30px Helvetica";
+		this.ctx.fillText(card.val + " " + card.suit ,card.x,card.y);
+		this.ctx.closePath();
+	}
 
-		while(this.deck.length > 0){
-			let randomIndex = Math.floor(Math.random()*this.deck.length);
-			randomDeck.push(this.deck[randomIndex]);
-			this.deck.splice(randomIndex, 1);
-		}
-
-		for(let i=0; i<randomDeck.length; i++){
-			this.deck[i] = randomDeck[i];
+	renderHand(){
+		for(let i=0; i<this.handSize; i++){
+			this.hand[i].x = (this.gameWidth/10+10) * (i+1);
+			this.hand[i].y = 20;
+			this.drawCard(this.hand[i]);
 		}
 	}
 }

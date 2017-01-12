@@ -13,6 +13,7 @@
 <script type="text/javascript" src="js/card.js"></script>
 <script type="text/javascript" src="js/user.js"></script>
 <script type="text/javascript" src="js/game.js"></script>
+<script type="text/javascript" src="js/cardGame.js"></script>
 <script type="text/javascript" src="js/poker.js"></script>
 
 <script type="text/javascript">
@@ -20,10 +21,11 @@
 window.addEventListener("load", function(){
 
 	let videoPoker = new Poker();
-	videoPoker.createCanvas();
 	videoPoker.createDeck();
 	videoPoker.shuffleDeck();
-	console.log(videoPoker.deck);
+	videoPoker.deal();
+	videoPoker.renderHand();
+	console.log(videoPoker.hand);
 
 }, false);
 
