@@ -36,11 +36,15 @@ class Game {
 		element.appendChild(this.canvas);
 	}
 
+	clearCanvas(){
+		this.ctx.clearRect(0,0,this.gameWidth, this.gameHeight);
+	}
+
 	toString(){
 		return this.gameName;
 	}
 
-	addEventListener(domEvent, functionRef, bubbles=false){
-		window.addEventListener(domEvent, functionRef.bind(this), bubbles);
+	addEventListener(domEvent, functionRef, domElement=window, bubbles=false){
+		domElement.addEventListener(domEvent, functionRef.bind(this), bubbles);
 	}
 }

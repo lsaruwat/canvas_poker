@@ -25,5 +25,21 @@ class Card extends Block{
 		else if(this.suit === "clubs")this.symbol = "&clubs";
 		else if(this.suit === "hearts")this.symbol = "&hearts";
 		else this.symbol = "&diamonds";
+		switch(this.val){
+			case 0:
+				this.name = "Ace";
+				break;
+			case 10:
+				this.name = "Jack";
+				break;
+			case 11:
+				this.name = "Queen";
+				break;
+			case 12:
+				this.name = "King";
+				break;
+			default:
+				this.name = String(this.val+1);
+		}
 	}
 }

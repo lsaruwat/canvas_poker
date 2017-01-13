@@ -9,7 +9,9 @@
 </style>
 </head>
 <body>
-<div id="stuff"></div>
+<div id="stuff">
+	<input type="button" id="deal-button" value="Deal" />
+</div>
 <script type="text/javascript" src="js/card.js"></script>
 <script type="text/javascript" src="js/user.js"></script>
 <script type="text/javascript" src="js/game.js"></script>
@@ -19,13 +21,10 @@
 <script type="text/javascript">
 
 window.addEventListener("load", function(){
-
-	let videoPoker = new Poker();
+	var videoPoker = new Poker();
 	videoPoker.createDeck();
 	videoPoker.shuffleDeck();
-	videoPoker.deal();
-	videoPoker.renderHand();
-	console.log(videoPoker.hand);
+	videoPoker.newHand();
 
 }, false);
 
