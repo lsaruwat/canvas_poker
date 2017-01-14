@@ -7,7 +7,6 @@ class Block{
 		this.margin = this.width/10;
 		this.x = x;
 		this.y = y;
-		this.selected = false;
 	}
 
 	toString(){
@@ -22,6 +21,8 @@ class Card extends Block{
 		this.val = _val;
 		this.suit = _suit;
 		this.symbol = "";
+		this.selected = false;
+		
 		if(this.suit === "spades")this.symbol = "&spades";
 		else if(this.suit === "clubs")this.symbol = "&clubs";
 		else if(this.suit === "hearts")this.symbol = "&hearts";

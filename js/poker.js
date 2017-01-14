@@ -7,8 +7,11 @@ class Poker extends CardGame{
 		this.handSize = 5;
 		this.user = new Player();
 		this.user.score = 100;
+		this.gameOverText = "Not a Winning Hand";
 		this.dealButton = document.getElementById("deal-button");
+		this.drawButton = document.getElementById("draw-button");
 		this.addEventListener("click", this.newHand, this.dealButton);
+		this.addEventListener("click", this.draw, this.drawButton);
 		this.addEventListener("click", this.cardSelected);
 	}
 
@@ -20,7 +23,7 @@ class Poker extends CardGame{
 		}
 	}
 
-	drawCard(card){
+	renderCard(card){
 		this.ctx.beginPath();
 		this.ctx.rect(card.x, card.y, card.width, card.height);
 		this.ctx.fillStyle = card.color;
@@ -32,7 +35,7 @@ class Poker extends CardGame{
 		this.ctx.closePath();
 	}
 
-	drawBorder(card){
+	renderBorder(card){
 		this.ctx.beginPath();
 		this.ctx.rect(card.x-2, card.y-2, card.width+4, card.height+4);
 		this.ctx.strokeStyle = "red";
@@ -44,9 +47,15 @@ class Poker extends CardGame{
 		for(let i=0; i<this.handSize; i++){
 			this.hand[i].x = (this.gameWidth/10+10) * (i+1);
 			this.hand[i].y = 40;
-			this.drawCard(this.hand[i]);
-			if(this.hand[i].selected)this.drawBorder(this.hand[i]);
+			this.renderCard(this.hand[i]);
+			if(this.hand[i].selected)this.renderBorder(this.hand[i]);
 		}
+	}
+
+	renderText(){
+		this.ctx.fillStyle = "black";
+		this.ctx.font = "30px Helvetica";
+		this.ctx.fillText(this.gameOverText ,this.gameWidth/4 ,this.gameHeight-100);
 	}
 
 	sortByVal(card1, card2){
@@ -149,42 +158,52 @@ class Poker extends CardGame{
 		if(this.royalFlush()){
 			this.user.winStats[0].count++;
 			this.user.score+=250;
+			this.gameOverText = this.user.winStats[0].name;
 		}
 		else if(this.straightFlush()){
 			this.user.winStats[1].count++;
 			this.user.score+=50;
+			this.gameOverText = this.user.winStats[1].name;
 		}
 		else if(this.fourOfAKind()){
 			this.user.winStats[2].count++;
 			this.user.score+=25;
+			this.gameOverText = this.user.winStats[2].name;
 		}
 		else if(this.fullHouse()){
 			this.user.winStats[3].count++;
 			this.user.score+=9;
+			this.gameOverText = this.user.winStats[3].name;
 		}
 		else if(this.flush()){
 			this.user.winStats[4].count++;
 			this.user.score+=6;
+			this.gameOverText = this.user.winStats[4].name;
 		}
 		else if(this.royalStraight()){
 			this.user.winStats[5].count++;
 			this.user.score+=4;
+			this.gameOverText = this.user.winStats[6].name;
 		}
 		else if(this.straight()){
 			this.user.winStats[6].count++;
 			this.user.score+=4;
+			this.gameOverText = this.user.winStats[6].name;
 		}
 		else if(this.threeOfAKind()){
 			this.user.winStats[7].count++;
 			this.user.score+=3;
+			this.gameOverText = this.user.winStats[7].name;
 		}
 		else if(this.twoPair()){
 			this.user.winStats[8].count++;
 			this.user.score+=2;
+			this.gameOverText = this.user.winStats[8].name;
 		}
 		else if(this.jacksOrBetter()){
 			this.user.winStats[9].count++;
 			this.user.score+=1;
+			this.gameOverText = this.user.winStats[9].name;
 		}
 
 		this.user.handsPlayed++;
@@ -209,7 +228,7 @@ class Poker extends CardGame{
 			if(e.pageX >= this.hand[i].x && e.pageX <= this.hand[i].x+this.hand[i].width && e.pageY >= this.hand[i].y && e.pageY <= this.hand[i].y+this.hand[i].height){
 				this.hand[i].selected = !this.hand[i].selected;
 
-				this.hand[i].selected ? this.drawBorder(this.hand[i]) : this.refreshCanvas();
+				this.hand[i].selected ? this.renderBorder(this.hand[i]) : this.refreshCanvas();
 				console.log(this.hand[i] + i + " " + this.hand[i].selected);
 				break;
 			}
@@ -219,5 +238,25 @@ class Poker extends CardGame{
 	refreshCanvas(){
 		this.clearCanvas();
 		this.renderHand();
+	}
+
+	draw(e){
+		console.log(this.hand[0].selected);
+		for(let i=0; i<this.handSize; i++){
+
+			if(!this.hand[i].selected){
+				this.hand.splice(i,1);
+				this.hand.push(this.deck.pop());
+			}
+		}
+
+		this.refreshCanvas();
+		this.checkRules();
+		this.gameOver();
+	}
+
+	gameOver(){
+		this.renderText();
+		this.drawButton.setAttribute("style", "visibility: hidden;");
 	}
 }
