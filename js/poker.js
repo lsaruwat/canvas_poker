@@ -55,7 +55,7 @@ class Poker extends CardGame{
 	renderText(){
 		this.ctx.fillStyle = "black";
 		this.ctx.font = "30px Helvetica";
-		this.ctx.fillText(this.gameOverText ,this.gameWidth/4 ,this.gameHeight-100);
+		this.ctx.fillText(this.gameOverText + " Money: $" +this.user.score,this.gameWidth/4 ,this.gameHeight-100);
 	}
 
 	sortByVal(card1, card2){
@@ -206,6 +206,10 @@ class Poker extends CardGame{
 			this.gameOverText = this.user.winStats[9].name;
 		}
 
+		else{
+			this.gameOverText = "Not a Winning Hand";
+		}
+
 		this.user.handsPlayed++;
 		this.user.score--;
 	}
@@ -221,6 +225,7 @@ class Poker extends CardGame{
 			this.createDeck();
 			this.shuffleDeck();
 		}
+		this.drawButton.setAttribute("style", "visibility: visible;");
 	}
 
 	cardSelected(e){
