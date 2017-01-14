@@ -24,8 +24,10 @@ window.addEventListener("load", function(){
 	var videoPoker = new Poker();
 	videoPoker.createDeck();
 	videoPoker.shuffleDeck();
+	while(videoPoker.user.winStats[0].count < 1)
 	videoPoker.newHand();
-
+	videoPoker.getStats();
+	console.log(videoPoker.user.score);
 }, false);
 
 </script>

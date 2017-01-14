@@ -89,19 +89,15 @@ class Poker extends CardGame{
 
 	straight(){
 		this.sortByVal();
-		for(let i=0; i<this.handSize; i++){
-			if( i < this.handSize-1 && this.hand[i].val !== this.hand[i+1].val+1) return false;
+		for(let i=0; i<this.handSize-1; i++){
+			if(this.hand[i].val !== this.hand[i+1].val-1) return false;
 		}
 		return true;
 	}
 
 	royalStraight(){
 		this.sortByVal();
-		if(this.hand[0].val === 0 && 
-		   this.hand[1].val === 9 &&
-		   this.hand[2].val === 10 && 
-		   this.hand[3].val === 11 && 
-		   this.hand[4].val === 12)return true;
+		if(this.hand[0].val === 0 && this.hand[1].val === 9 && this.hand[2].val === 10 && this.hand[3].val === 11 && this.hand[4].val === 12)return true;
 		return false;
 	}
 
@@ -138,23 +134,62 @@ class Poker extends CardGame{
 	}
 
 	checkRules(){
-		if(this.royalFlush())console.log("royalFlush");
-		else if(this.straightFlush())console.log("straightFlush");
-		else if(this.fourOfAKind())console.log("fourOfAKind");
-		else if(this.fullHouse())console.log("fullHouse");
-		else if(this.flush())console.log("flush");
-		else if(this.royalStraight())console.log("royalStraight");
-		else if(this.straight())console.log("straight");
-		else if(this.threeOfAKind())console.log("threeOfAKind");
-		else if(this.twoPair())console.log("twoPair");
-		else if(this.jacksOrBetter())console.log("jacksOrBetter");
+		if(this.royalFlush()){
+			this.user.winStats[0].count++;
+			this.user.score+=250;
+		}
+		else if(this.straightFlush()){
+			this.user.winStats[1].count++;
+			this.user.score+=50;
+		}
+		else if(this.fourOfAKind()){
+			this.user.winStats[2].count++;
+			this.user.score+=25;
+		}
+		else if(this.fullHouse()){
+			this.user.winStats[3].count++;
+			this.user.score+=9;
+		}
+		else if(this.flush()){
+			this.user.winStats[4].count++;
+			this.user.score+=6;
+		}
+		else if(this.royalStraight()){
+			this.user.winStats[5].count++;
+			this.user.score+=4;
+		}
+		else if(this.straight()){
+			this.user.winStats[6].count++;
+			this.user.score+=4;
+		}
+		else if(this.threeOfAKind()){
+			this.user.winStats[7].count++;
+			this.user.score+=3;
+		}
+		else if(this.twoPair()){
+			this.user.winStats[8].count++;
+			this.user.score+=2;
+		}
+		else if(this.jacksOrBetter()){
+			this.user.winStats[9].count++;
+			this.user.score+=1;
+		}
+
+		this.user.handsPlayed++;
+	}
+
+	getStats(){
+		for(let i in this.user.winStats){
+			console.log(this.user.winStats[i].name + ": " + this.user.winStats[i].count);
+		}
+		console.log("Hands played: " + this.user.handsPlayed);
 	}
 
 	newHand(){
 		if(this.deck.length >= this.handSize){
 			this.deal();
-			this.clearCanvas();
-			this.renderHand();
+			//this.clearCanvas();
+			//this.renderHand();
 			this.checkRules();
 		}
 		else{
