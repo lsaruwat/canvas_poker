@@ -12,16 +12,16 @@ class CardGame extends Game{
 		let val = null;
 		for(let i=0; i<this.deckSize; i++){
 			if(i%4 === 0){
-				suit = "spades";
+				suit = "Spades";
 			}
 			else if(i%4 === 1){
-				suit = "clubs";		
+				suit = "Clubs";		
 			}
 			else if(i%4 === 2){
-				suit = "hearts";
+				suit = "Hearts";
 			}
 			else{
-				suit = "diamonds";
+				suit = "Diamonds";
 			}
 
 			val = Math.floor(i/4);

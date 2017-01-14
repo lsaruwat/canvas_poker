@@ -7,6 +7,7 @@ class Block{
 		this.margin = this.width/10;
 		this.x = x;
 		this.y = y;
+		this.selected = false;
 	}
 
 	toString(){

@@ -5,9 +5,11 @@ class Poker extends CardGame{
 		this.gameName = "Poker";
 		this.hand = [];
 		this.handSize = 5;
+		this.user = new Player();
 		this.user.score = 100;
 		this.dealButton = document.getElementById("deal-button");
 		this.addEventListener("click", this.newHand, this.dealButton);
+		this.addEventListener("click", this.cardSelected);
 	}
 
 	deal(){
@@ -23,9 +25,18 @@ class Poker extends CardGame{
 		this.ctx.rect(card.x, card.y, card.width, card.height);
 		this.ctx.fillStyle = card.color;
 		this.ctx.fill();
-		this.ctx.strokeStyle = "black";
+		this.ctx.fillStyle = "black";
 		this.ctx.font = "30px Helvetica";
-		this.ctx.fillText(card.name + " " + card.suit ,card.x + (card.width/8),card.y);
+		this.ctx.fillText(card.name ,card.x + (card.width/4),card.y+30);
+		this.ctx.fillText(card.suit ,card.x + (card.width/4),card.y+60);
+		this.ctx.closePath();
+	}
+
+	drawBorder(card){
+		this.ctx.beginPath();
+		this.ctx.rect(card.x-2, card.y-2, card.width+4, card.height+4);
+		this.ctx.strokeStyle = "red";
+		this.ctx.stroke();
 		this.ctx.closePath();
 	}
 
@@ -34,6 +45,7 @@ class Poker extends CardGame{
 			this.hand[i].x = (this.gameWidth/10+10) * (i+1);
 			this.hand[i].y = 40;
 			this.drawCard(this.hand[i]);
+			if(this.hand[i].selected)this.drawBorder(this.hand[i]);
 		}
 	}
 
@@ -176,25 +188,36 @@ class Poker extends CardGame{
 		}
 
 		this.user.handsPlayed++;
-	}
-
-	getStats(){
-		for(let i in this.user.winStats){
-			console.log(this.user.winStats[i].name + ": " + this.user.winStats[i].count);
-		}
-		console.log("Hands played: " + this.user.handsPlayed);
+		this.user.score--;
 	}
 
 	newHand(){
 		if(this.deck.length >= this.handSize){
 			this.deal();
-			//this.clearCanvas();
-			//this.renderHand();
+			this.clearCanvas();
+			this.renderHand();
 			this.checkRules();
 		}
 		else{
 			this.createDeck();
 			this.shuffleDeck();
 		}
+	}
+
+	cardSelected(e){
+		for(let i=0; i<this.handSize; i++){
+			if(e.pageX >= this.hand[i].x && e.pageX <= this.hand[i].x+this.hand[i].width && e.pageY >= this.hand[i].y && e.pageY <= this.hand[i].y+this.hand[i].height){
+				this.hand[i].selected = !this.hand[i].selected;
+
+				this.hand[i].selected ? this.drawBorder(this.hand[i]) : this.refreshCanvas();
+				console.log(this.hand[i] + i + " " + this.hand[i].selected);
+				break;
+			}
+		}
+	}
+
+	refreshCanvas(){
+		this.clearCanvas();
+		this.renderHand();
 	}
 }
