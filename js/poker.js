@@ -4,6 +4,7 @@ class Poker extends CardGame{
 		super();
 		this.gameName = "Poker";
 		this.hand = [];
+		this.tempHand = [];
 		this.handSize = 5;
 		this.user = new Player();
 		this.user.score = 100;
@@ -21,6 +22,7 @@ class Poker extends CardGame{
 		for(let i=0; i<this.handSize; i++){
 			this.hand.push(this.deck.pop());
 		}
+		this.tempHand = this.hand.slice();
 	}
 
 	renderCard(card){
@@ -69,9 +71,8 @@ class Poker extends CardGame{
 	}
 
 	jacksOrBetter(){
-		this.sortByVal();
 		for(let i=this.handSize-1; i>0; i--){
-			if(i > 0 && this.hand[i].val > 9){
+			if(this.hand[i].val > 9 || this.hand[i].val === 0){
 				if(this.hand[i].val === this.hand[i-1].val) return true;
 			}
 		}
@@ -80,7 +81,6 @@ class Poker extends CardGame{
 
 	twoPair(){
 		let firstPair = -1;
-		this.sortByVal();
 		for(let i=this.handSize-1; i>0; i--){
 			if(i > 0){
 				if(this.hand[i].val === this.hand[i-1].val) firstPair = this.hand[i].val;
@@ -99,7 +99,6 @@ class Poker extends CardGame{
 	}
 
 	threeOfAKind(){
-		this.sortByVal();
 		for(let i=this.handSize-1; i>0; i--){
 			if(i > 1){
 				if(this.hand[i].val === this.hand[i-1].val && this.hand[i].val === this.hand[i-2].val) return true;
@@ -109,7 +108,6 @@ class Poker extends CardGame{
 	}
 
 	straight(){
-		this.sortByVal();
 		for(let i=0; i<this.handSize-1; i++){
 			if(this.hand[i].val !== this.hand[i+1].val-1) return false;
 		}
@@ -117,7 +115,6 @@ class Poker extends CardGame{
 	}
 
 	royalStraight(){
-		this.sortByVal();
 		if(this.hand[0].val === 0 && this.hand[1].val === 9 && this.hand[2].val === 10 && this.hand[3].val === 11 && this.hand[4].val === 12)return true;
 		return false;
 	}
@@ -135,7 +132,6 @@ class Poker extends CardGame{
 	}
 
 	fourOfAKind(){
-		this.sortByVal();
 		for(let i=this.handSize-1; i>0; i--){
 			if(i > 2){
 				if(this.hand[i].val === this.hand[i-1].val && this.hand[i].val === this.hand[i-2].val && this.hand[i].val === this.hand[i-3].val) return true;
@@ -155,6 +151,7 @@ class Poker extends CardGame{
 	}
 
 	checkRules(){
+		this.sortByVal();
 		if(this.royalFlush()){
 			this.user.winStats[0].count++;
 			this.user.score+=250;
@@ -209,7 +206,7 @@ class Poker extends CardGame{
 		else{
 			this.gameOverText = "Not a Winning Hand";
 		}
-
+		this.hand = this.tempHand.slice();
 		this.user.handsPlayed++;
 		this.user.score--;
 	}

@@ -16,13 +16,13 @@ class Block{
 
 class Card extends Block{
   
-	constructor(_val, _suit, _width, _height){
-		super(0,0,_width,_height);
+	constructor(_val, _suit, _width, _height, _color="green"){
+		super(0,0,_width,_height, _color);
 		this.val = _val;
 		this.suit = _suit;
 		this.symbol = "";
 		this.selected = false;
-		
+
 		if(this.suit === "spades")this.symbol = "&spades";
 		else if(this.suit === "clubs")this.symbol = "&clubs";
 		else if(this.suit === "hearts")this.symbol = "&hearts";

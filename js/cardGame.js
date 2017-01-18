@@ -26,7 +26,7 @@ class CardGame extends Game{
 
 			val = Math.floor(i/4);
 
-			this.deck.push(new Card(val, suit, this.gameWidth/10, this.gameHeight/3, "red") );
+			this.deck.push(new Card(val, suit, this.gameWidth/10, this.gameHeight/3, "grey") );
 		}
 
 	}
