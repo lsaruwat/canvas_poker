@@ -34,6 +34,9 @@ class Poker extends CardGame{
 		this.ctx.font = "30px Helvetica";
 		this.ctx.fillText(card.name ,card.x + (card.width/4),card.y+30);
 		this.ctx.fillText(card.suit ,card.x + (card.width/4),card.y+60);
+		this.ctx.fillStyle = card.suitColor;
+		this.ctx.font = "70px Helvetica";
+		this.ctx.fillText(card.symbol ,card.x-20 + (card.width/2) ,card.y + (card.height/2) );
 		this.ctx.closePath();
 	}
 

@@ -23,10 +23,22 @@ class Card extends Block{
 		this.symbol = "";
 		this.selected = false;
 
-		if(this.suit === "spades")this.symbol = "&spades";
-		else if(this.suit === "clubs")this.symbol = "&clubs";
-		else if(this.suit === "hearts")this.symbol = "&hearts";
-		else this.symbol = "&diamonds";
+		if(this.suit === "Spades"){
+			this.symbol = "\u2660";
+			this.suitColor = "black";
+		}
+		else if(this.suit === "Clubs"){
+			this.symbol = "\u2663";
+			this.suitColor = "black";
+		}
+		else if(this.suit === "Hearts"){
+			this.symbol = "\u2665";
+			this.suitColor = "red";
+		}
+		else{
+			this.symbol = "\u2666";
+			this.suitColor = "red";
+		}
 		switch(this.val){
 			case 0:
 				this.name = "Ace";
