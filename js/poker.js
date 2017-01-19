@@ -247,8 +247,9 @@ class Poker extends CardGame{
 		for(let i=0; i<this.handSize; i++){
 
 			if(!this.hand[i].selected){
-				this.hand.splice(i,1);
-				this.hand.push(this.deck.pop());
+				//this.hand.splice(i,1);
+				//this.hand.push(this.deck.pop());
+				this.hand[i] = this.deck.pop();
 			}
 		}
 
