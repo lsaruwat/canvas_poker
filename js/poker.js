@@ -14,9 +14,12 @@ class Poker extends CardGame{
 		this.addEventListener("click", this.newHand, this.dealButton);
 		this.addEventListener("click", this.draw, this.drawButton);
 		this.addEventListener("click", this.cardSelected);
+		//this.newHand();
 	}
 
 	deal(){
+		this.createDeck();
+		this.shuffleDeck();
 		this.hand = [];
 
 		for(let i=0; i<this.handSize; i++){
@@ -32,11 +35,11 @@ class Poker extends CardGame{
 		this.ctx.fill();
 		this.ctx.fillStyle = "black";
 		this.ctx.font = "30px Helvetica";
-		this.ctx.fillText(card.name ,card.x + (card.width/4),card.y+30);
-		this.ctx.fillText(card.suit ,card.x + (card.width/4),card.y+60);
+		this.ctx.fillText(card.name ,card.x + card.width/10,card.y + card.height/10);
+		//this.ctx.fillText(card.suit ,card.x + (card.width/4),card.y+60);
 		this.ctx.fillStyle = card.suitColor;
-		this.ctx.font = "70px Helvetica";
-		this.ctx.fillText(card.symbol ,card.x-20 + (card.width/2) ,card.y + (card.height/2) );
+		this.ctx.font = "50px Helvetica";
+		this.ctx.fillText(card.symbol ,card.x + card.width/15 ,card.y + card.height/4 );
 		this.ctx.closePath();
 	}
 
@@ -215,16 +218,11 @@ class Poker extends CardGame{
 	}
 
 	newHand(){
-		if(this.deck.length >= this.handSize){
-			this.deal();
-			this.clearCanvas();
-			this.renderHand();
-			this.checkRules();
-		}
-		else{
-			this.createDeck();
-			this.shuffleDeck();
-		}
+		
+		this.deal();
+		this.clearCanvas();
+		this.renderHand();
+		//this.checkRules();
 		this.drawButton.setAttribute("style", "visibility: visible;");
 	}
 
@@ -246,7 +244,6 @@ class Poker extends CardGame{
 	}
 
 	draw(e){
-		console.log(this.hand[0].selected);
 		for(let i=0; i<this.handSize; i++){
 
 			if(!this.hand[i].selected){

@@ -41,16 +41,16 @@ class Card extends Block{
 		}
 		switch(this.val){
 			case 0:
-				this.name = "Ace";
+				this.name = "A";
 				break;
 			case 10:
-				this.name = "Jack";
+				this.name = "J";
 				break;
 			case 11:
-				this.name = "Queen";
+				this.name = "Q";
 				break;
 			case 12:
-				this.name = "King";
+				this.name = "K";
 				break;
 			default:
 				this.name = String(this.val+1);

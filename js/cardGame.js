@@ -8,6 +8,7 @@ class CardGame extends Game{
 	}
 
 	createDeck(){
+		this.deck = []; //Reinitialize the deck
 		let suit = null;
 		let val = null;
 		for(let i=0; i<this.deckSize; i++){
@@ -26,7 +27,7 @@ class CardGame extends Game{
 
 			val = Math.floor(i/4);
 
-			this.deck.push(new Card(val, suit, this.gameWidth/10, this.gameHeight/3, "grey") );
+			this.deck.push(new Card(val, suit, this.gameWidth/10, this.gameHeight/3, "#DDD") );
 		}
 
 	}
