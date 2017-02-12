@@ -35,11 +35,19 @@ class Poker extends CardGame{
 		this.ctx.fill();
 		this.ctx.fillStyle = "black";
 		this.ctx.font = "30px Helvetica";
+		this.ctx.textAlign = "left";
 		this.ctx.fillText(card.name ,card.x + card.width/10,card.y + card.height/10);
-		//this.ctx.fillText(card.suit ,card.x + (card.width/4),card.y+60);
+		this.ctx.textAlign = "right";
+		this.ctx.fillText(card.name ,card.x + card.width - card.width/10,card.y + card.height - card.height/15);
 		this.ctx.fillStyle = card.suitColor;
 		this.ctx.font = "50px Helvetica";
+		this.ctx.textAlign = "left";
 		this.ctx.fillText(card.symbol ,card.x + card.width/15 ,card.y + card.height/4 );
+		this.ctx.textAlign = "right";
+		this.ctx.fillText(card.symbol ,card.x + card.width - card.width/15 ,card.y + card.height - card.height/5 );
+		this.ctx.font = "70px Helvetica";
+		this.ctx.textAlign = "center";
+		this.ctx.fillText(card.symbol ,card.x + card.width/2,card.y + card.height/1.8 );
 		this.ctx.closePath();
 	}
 
