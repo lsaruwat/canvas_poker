@@ -26,8 +26,9 @@ class CardGame extends Game{
 			}
 
 			val = Math.floor(i/4);
-
-			this.deck.push(new Card(val, suit, this.gameWidth/10, this.gameHeight/3, "#DDD") );
+			let width = 250;
+			if(this.gameWidth/6 < width)width = this.gameWidth/6;
+			this.deck.push(new Card(val, suit, width, this.gameHeight/3, "#DDD") );
 		}
 
 	}

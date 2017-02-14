@@ -61,8 +61,8 @@ class Poker extends CardGame{
 
 	renderHand(){
 		for(let i=0; i<this.handSize; i++){
-			this.hand[i].x = (this.gameWidth/10+10) * (i+1);
-			this.hand[i].y = 40;
+			this.hand[i].x = (this.gameWidth/5.75)*i + this.gameWidth/15;
+			this.hand[i].y = this.gameHeight/5;
 			this.renderCard(this.hand[i]);
 			if(this.hand[i].selected)this.renderBorder(this.hand[i]);
 		}
