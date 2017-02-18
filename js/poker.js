@@ -9,12 +9,14 @@ class Poker extends CardGame{
 		this.user = new Player();
 		this.user.score = 100;
 		this.gameOverText = "Not a Winning Hand";
+		this.buttonArea = document.getElementById("buttons");
 		this.dealButton = document.getElementById("deal-button");
 		this.drawButton = document.getElementById("draw-button");
 		this.addEventListener("click", this.newHand, this.dealButton);
 		this.addEventListener("click", this.draw, this.drawButton);
 		this.addEventListener("click", this.cardSelected);
-		//this.newHand();
+		
+		if(this.isMobile())this.buttonArea.className = "mobile";
 	}
 
 	deal(){
